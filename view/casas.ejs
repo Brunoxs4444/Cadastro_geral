@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Casas</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"></script>
+  <link rel="stylesheet" href="/view/style.css">
+</head>
+<style>
+  .top1{
+    text-align: center;
+    border: 50px solid #ddd;
+    background: #ddd;
+}
+
+button{
+    background: rgb(11, 142, 223);
+    color: white;
+    
+}
+.test{
+  background-color: rgb(6, 37, 73);
+}
+</style>
+
+<body>
+
+    <nav class="navbar navbar-expand-sm test navbar-dark">
+        <div class="container-fluid">
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link active" href="/principal">CBV</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/adm">Clientes</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/funcionarios">Funcionarios</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/casas">Casas</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/reservas">Reservas</a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+      <div class="top1">
+        <h2> Rotinas Administrativas</h2>
+      </div>
+      
+      <div style="margin: 80px; padding:0;">
+      <div> 
+        <img src="/imgs/icons8-chalé-96.png" alt="icons96">
+        <h4>Lista de Casas</h4>
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal">Cadastrar Casa</button>
+       <!--<p style="color:red;"> Cliente Cadastrado com Sucesso</p>-->
+      </div>
+
+      <table class="table table-striped" style="text-align:center;">
+        <thead>
+          <tr style="border-top:1px solid #ddd;" >
+            <th>id</th>
+            <th>Nome</th>
+            <th>endereco</th>
+            <th>valor</th>
+            <th> Editar</th>
+            <th>Deletar</th>
+          </tr>
+        </thead>
+        <%
+        for(var i = 0; i < data.length; i++){         
+        %>
+          <tr>
+            <th><%=data[i].id %></th>
+            <th><%=data[i].nome %></th>
+            <th><%=data[i].endereco %></th>
+            <th><%=data[i].valor %></th>
+            <th><button style="background:black; color:white;" href="/editar" 
+              type="button" class="btn btn-primary" onclick="alert('Estamos em Desenvolvimento');">Editar</button></th>
+            <th><button style="background:red; color:white;" href="/deletar" 
+              type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModalDelete">Deletar</button></th>
+          </tr>
+        <%
+          }
+         %>
+         
+        </tbody>
+      </table>
+
+    </div>
+    <footer>
+      <link rel="stylesheet" href="https://icons8.com.br/icon/set/apartamento/flat-round">
+    </footer>
+     <!-- The Modal -->
+     <div class="modal" id="myModal">
+      <div class="modal-dialog">
+        <div class="modal-content">
+    
+          <!-- Modal Header -->
+          <div class="modal-header">
+            <h4 class="modal-title">Cadastro de Casas</h4>
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+          </div>
+    
+          <!-- Modal body -->
+          <div class="modal-body">
+            <form action="/casas/cadastrar" method="post">
+              <div class="form-group">
+                  <label for="text">Nome:</label>
+                  <input type="text" class="form-control" placeholder="Enter Name" id="text" name="nome">
+                </div>
+                <div class="form-group">
+                  <label for="tel">Telefone:</label>
+                  <input type="tel" class="form-control"  placeholder="Informe seu Telefone" id="tel" name="telefone">
+                </div>
+                <div class="form-group">
+                  <label for="text">Endereço:</label>
+                  <input type="text" class="form-control"  placeholder="Informe seu Endereco" id="text" name="endereco">
+                </div>
+                <div class="form-group">
+                  <label for="value">Valor:</label>
+                  <input type="value" class="form-control"  placeholder="Informe o valor" id="value" name="valor">
+                </div>
+                <div class="form-group form-check">
+                  <label class="form-check-label">
+                    <input class="form-check-input" type="checkbox"> Remember me
+                  </label>
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+              </form>
+          </div>
+    
+          <!-- Modal footer -->
+          <div class="modal-footer">
+            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+          </div>
+    
+        </div>
+      </div>
+    </div>
+
+      <!-- The Modal Delete -->
+    <div class="modal fade" id="myModalDelete">
+      <div class="modal-dialog">
+        <div class="modal-content">
+    
+          <!-- Modal Header -->
+          <div class="modal-header bg-dark text-light">
+            <h4 class="modal-title">Deletar Cliente</h4>
+            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+          </div>
+    
+          <!-- Modal body -->
+          <div class="modal-body">
+            <form action="/casas/deletar" method="post">
+              <div class="form-group">
+                <label for="id">Id:</label>
+                <input type="number" class="form-control" placeholder="Informe seu Id" id="id" name="id">
+              </div>
+              <button type="submit" class="btn btn-danger">Deletar</button>
+              </div>
+            </form>
+    
+          <!-- Modal footer -->
+          <div class="modal-footer">
+            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+          </div>
+          
+          </div>
+          </div>
+          </div>
+
+
+    
+      
+      
+    
+</body>
+</html>
